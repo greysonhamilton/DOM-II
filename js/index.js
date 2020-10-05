@@ -1,71 +1,98 @@
 // Your code goes here
 // bubbles
-const mouseOn = document.querySelectorAll('nav').forEach(a => {
-nav.addEventListener("mouseover", (e) => {
-    e.style.transform = scale("2.0");
-    e.style.textDecoration = "none";
+document.querySelectorAll('nav a').forEach(a => {
+a.addEventListener("mouseover", (e) => {
+    a.style.transform = scale("2.0");
+    a.style.transition = "transform 2s";
+    e.stopPropagation();
+    })
 });
 
+// keyCode 27 = Esc.
 // bubbles
-const keyCode = document.getElementByName('body');
-keyCode.addEventListener("keydown", (e) => {
-    if (e.isComposing || e.keyCode === 32) {
-    return;
-}
-    keyCode.style.backgroundColor = 'honey';
+const keyPress = document.querySelector('body');
+keyPress.addEventListener("keydown", (e) => {
+    if (e.keyCode === 27) {
+        keyPress.style.backgroundColor = 'blue';
+    }
+    
 });
 
 let scale = 1;
-
 // bubbles
 const wheel = document.getElementsByClassName("img-content");
 wheel.addEventListener("wheel", (e) => {
-    if (e.deltaY < 0) {
-        scale *= e.deltaY * -2;
-    } else {
-        scale /= e.deltaY * 2;
-    }
     e.preventDefault;
-    wheel.style.transform = `scale(${scale})`;
+    wheel.style.transform = "scale(2.0)"
+    wheel.style.transition = "transform 1s";
+    e.stopPropagation();
 });
 
 // no bubbles
 const load = document.querySelector('footer p');
-load.addEventListener('DOMContentLoaded', (e) => {
-load.style.textAlign = "center";
+load.addEventListener('load', (e) => {
+load.style.textAlign = "left";
 });
 
 // no bubbles
-const focus = document.querySelector('.text-content p');
-focus.addEventListener('focus', (e) => {
-
+const focusImg = document.querySelector('section.content-destination img');
+focusImg.addEventListener('focus', (e) => {
+    focusImg.style.opacity = "50%";
 });
 
 // no bubbles
 let i = 0;
-const resize = document.querySelector('footer');
-resize.addEventListener('resize', (e) => {
-    resize.append(document.createElement('p').textContent = `This window has been resized ${change} times`);
-    let change = i += 1;
+const reSize = document.querySelector('footer');
+let change = i += 1;
+reSize.addEventListener('resize', (e) => {
+    reSize.append(document.createElement('p').textContent = `This window has been resized ${change} times`);
 });
 
-
-const scroll = document.getElementByName('body');
-scroll.addEventListener('scroll', (e) => {
-scroll.style.backgroundColor = "black" ? "white" : "black";
-});
-
-
-const select = document.getElementByName('h1');
-select.addEventListener('select', (e) => {
-    select.style.textContent = "This is the fun-vee!"
+// no bubble
+const scrollOn = document.querySelector('body');
+scrollOn.addEventListener('scroll', (e) => {
+    scrollOn.style.backgroundColor = "lightgrey" ? "white" : "lightgrey";
 });
 
 // bubbles
-const dblclick = document.querySelector('.logo-heading');
-dblclick.addEventListener('dblclick', (e) => { 
-dblclick.style.border = "5px dashed #85e085"
+const selector = document.querySelector('h1');
+selector.addEventListener('select', (e) => {
+    selector.textContent = "This is the fun-vee!"
+    e.stopPropagation();
 });
 
+// bubbles
+const dBlClick = document.querySelector("header.intro img");
+dBlClick.addEventListener('dblclick', (e) => { 
+    dBlClick.style.border = "5px dashed #85e085";
+e.stopPropagation();
+});
 
-// dragDrop
+// drag / drop
+busImg.onmousedown = function(e) {
+    busImg.style.position = 'absolute';
+    busImg.style.zIndex = 100;
+
+    document.header.append(busImg);
+
+    function moveAt(pageX, pageY) {
+
+        busImg.style.left = pageX - busImg.offsetWidth / 2 + 'px';
+        busImg.style.top = pageY - busImg.offsetHeight / 2 + 'px';
+
+    }
+
+    moveAt(e.pageX, e.pageY);
+
+    function onMouseMove(e) {
+        moveAt(e.pageX, e.pageY);
+    }
+
+document.addEventListener('mousemove', onMouseMove);
+
+busImg.onmouseup = function() {
+    document.removeEventListener('mousemove', onMouseMove);
+    busImg.onmouseup = null;
+};
+
+};
